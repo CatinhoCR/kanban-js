@@ -1,10 +1,44 @@
 @charset "utf-8";
 
 body {
+    height: 100vh;
     font-family: 'Alata', sans-serif;
 }
+
 #main-navigation {
     padding: 10px;
     background-color: rgba(54, 46, 46, 1);
     color: white;
+}
+
+.board {
+    height: inherit;
+    background-color: cornflowerblue;
+    display: flex;
+    flex-direction: row;
+}
+
+.tasklist {
+    display: flexbox;
+    flex-direction: column;
+    width: 250px;
+    margin: 5px;
+    background-color: rgba(191, 191, 191, 1);
+    height: fit-content;
+}
+
+.tasklist-name {
+    padding-left: 10px;
+}
+
+.task {
+    height: min-content;
+    max-width: 200px;
+    background-color: whitesmoke;
+    border-radius: 5%;
+    margin: 10px;
+    list-style: none;
+}
+.tasklist-name {
+    text-shadow: 3px;
 }
