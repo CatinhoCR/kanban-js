@@ -22,7 +22,7 @@ body {
     justify-content: center;
     align-items: stretch;
     padding-left: 10px;
-    background-color: rgb(141, 192, 0);
+    background-color: rgba(0, 0, 0, 0.87);
     color: white;
     flex-grow: 0;
     height: 40px;
@@ -62,6 +62,7 @@ body {
     padding: 0;
     margin: 5px;
     padding-left: 5px;
+    margin-top: 10px;
     background-color: hsla(170, 5%, 15%, 0.75);
     height: fit-content;
     padding-bottom: 15px;
@@ -85,7 +86,7 @@ body {
 .add-task-btn {
     background-color: hsla(170, 95%, 95%, 0.1);
     border: none;
-    color: brown;
+    color: rgb(255, 255, 255);
     width: 25px;
     height: 25px;
     margin-right: 10px;

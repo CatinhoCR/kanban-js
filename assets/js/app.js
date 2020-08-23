@@ -34,13 +34,12 @@ class TaskList {
     }
 
     addTaskBtnHandler() {
+        //$Hard Code new Task
         const newTask = new Task(
             Math.random().toString(),
             this.id,
             'Nueva Tarea'
         );
-        console.log(newTask);
-        this.addTask(newTask);
 
         // const backdrop = document.getElementById('backdrop');
         // backdrop.classList.add('visible');
@@ -49,6 +48,8 @@ class TaskList {
 
         // document.body.append(modal);
         // //alert('New Task Button was clicked');
+
+        this.addTask(newTask);
     }
 
     addTask(task) {
@@ -58,6 +59,15 @@ class TaskList {
         newTask.classList.add('task');
         newTask.textContent = task.taskName;
         target.append(newTask);
+    }
+
+    removeTask(task) {
+        //Select the task to be removed
+        const selectedTask = this.tasks.find((t) => t.taskID === task.taskID);
+        const selectedDOMTask = document.getElementById(selectedTask.taskID);
+        console.log(selectedDOMTask);
+        const target = document.getElementById(task.parentListID);
+        target.removeChild(selectedDOMTask);
     }
 }
 
@@ -82,9 +92,9 @@ class App {
         const list2 = new TaskList('list2');
         const list3 = new TaskList('list3');
 
-        const newTask = new Task('newTask1', 'list1', 'Tarea10');
-        list1.addTask(newTask);
-        console.log(list1);
+        const rtask = list1.tasks[2];
+        console.log(rtask);
+        list1.removeTask(rtask);
     }
 }
 
