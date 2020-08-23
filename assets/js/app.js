@@ -1,3 +1,5 @@
+const DEFAULT_LISTS = ['Pendientes', 'En Proceso', 'Finalizadas'];
+
 class DOMHelper {}
 
 class Component {}
@@ -68,6 +70,8 @@ class TaskList {
         console.log(selectedDOMTask);
         const target = document.getElementById(task.parentListID);
         target.removeChild(selectedDOMTask);
+        this.tasks = this.tasks.filter((t) => t.taskID !== task.taskID);
+        console.log(this.tasks);
     }
 }
 
@@ -92,7 +96,7 @@ class App {
         const list2 = new TaskList('list2');
         const list3 = new TaskList('list3');
 
-        const rtask = list1.tasks[2];
+        const rtask = list1.tasks[1];
         console.log(rtask);
         list1.removeTask(rtask);
     }
