@@ -1,9 +1,5 @@
 const DEFAULT_LISTS = ['Pendientes', 'En Proceso', 'Finalizadas'];
 
-class DOMHelper {}
-
-class Component {}
-
 class Task {
     constructor(taskID, parentID, taskName) {
         this.taskID = taskID;
@@ -105,6 +101,7 @@ class TaskList {
         const newTask = document.createElement('li');
         newTask.classList.add('task');
         newTask.textContent = task.taskName;
+        newTask.setAttribute('draggable', true);
         target.append(newTask);
     }
 
@@ -129,14 +126,13 @@ class Board {
     }
 }
 
-const navBarClickHandlers = () => {};
-
 //$ Launches the application
 class App {
     static init() {
         //$ Start the App and Get information from HTML
         console.info('App Started');
         const activeBoard = new Board('active');
+
         const list1 = new TaskList('list1');
         const list2 = new TaskList('list2');
         const list3 = new TaskList('list3');
