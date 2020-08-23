@@ -73,11 +73,24 @@ class TaskList {
         });
 
         targetHandle.addEventListener('drop', (event) => {
+            event.stopPropagation();
             const tid = event.dataTransfer.getData('text/plain');
             if (this.tasks.find((t) => t.taskID === tid)) {
                 console.log('task is already in this list');
             }
-            console.log(tid);
+
+            console.log(event);
+            const draggedTask = document.getElementById(tid);
+            const parentTask = draggedTask.parentElement;
+            const parentOfTarget = event.path[2];
+
+            const targetList = parentOfTarget.querySelector('.tasklist');
+            targetList.appendChild(draggedTask);
+            console.log(targetList);
+
+            console.log('The dragged task:', draggedTask);
+            console.log('The parent for the dragged task:', parentTask);
+            console.log('The target list for this task', parentOfTarget);
             console.log(this.tasks);
         });
     }
@@ -86,7 +99,9 @@ class TaskList {
         const tt = document.getElementById(taskId);
         tt.addEventListener('dragstart', function (event) {
             event.dataTransfer.setData('text/plain', this.id);
+            event.dataTransfer.setData('text/plain', this.id);
             event.dataTransfer.effectAllowed = 'move';
+            console.log('event target', event.target.id);
             console.log('dragging...', this.id);
         });
         //console.log(tt);
@@ -196,11 +211,11 @@ class Board {
         let count = 1;
         DEFAULT_LISTS.forEach((element) => {
             const newList = new TaskList(`list${count}`, element, activeBoard);
-            //this.addTaskList(newList);
+            this.tasklists.push(newList);
             count++;
         });
 
-        console.log(this.tasklists);
+        console.log('Listas en el tablero actual:', this.tasklists);
     }
 
     addTaskList(newList) {
@@ -208,10 +223,10 @@ class Board {
     }
 }
 
-//$ Launches the application
+//* Launches the application
 class App {
     static init() {
-        //$ Start the App and Get information from HTML
+        //* Start the App and Get information from HTML
         console.info('App Started');
         const board = new Board('active');
     }
