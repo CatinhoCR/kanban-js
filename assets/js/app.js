@@ -28,7 +28,6 @@ class TaskList {
             const newTask = new Task(task.id, id);
             this.tasks.push(newTask);
         }
-        console.log(this.tasks);
 
         //$Show Add Task Modal
         const addTaskBtn = thisList.querySelector('.add-task-btn');
@@ -43,8 +42,8 @@ class TaskList {
             'Nueva Tarea'
         );
 
-        // const backdrop = document.getElementById('backdrop');
-        // backdrop.classList.add('visible');
+        //const backdrop = document.getElementById('backdrop');
+        //backdrop.classList.add('visible');
         // const modal = document.getElementById('modal');
         // modal.classList.add('visible');
 
@@ -67,11 +66,9 @@ class TaskList {
         //Select the task to be removed
         const selectedTask = this.tasks.find((t) => t.taskID === task.taskID);
         const selectedDOMTask = document.getElementById(selectedTask.taskID);
-        console.log(selectedDOMTask);
         const target = document.getElementById(task.parentListID);
         target.removeChild(selectedDOMTask);
         this.tasks = this.tasks.filter((t) => t.taskID !== task.taskID);
-        console.log(this.tasks);
     }
 }
 
@@ -86,6 +83,13 @@ class Board {
     }
 }
 
+const navBarClickHandlers = () => {
+    const modalTaskView = document.querySelector('div.modal');
+    modalTaskView.classList.add('visible');
+    const backdrop = document.getElementById('backdrop');
+    backdrop.classList.add('visible');
+};
+
 //$ Launches the application
 class App {
     static init() {
@@ -97,8 +101,12 @@ class App {
         const list3 = new TaskList('list3');
 
         const rtask = list1.tasks[1];
-        console.log(rtask);
         list1.removeTask(rtask);
+
+        //temporary add task button
+        const navBar = document.getElementById('main-navigation-bar');
+        navBar.addEventListener('click', navBarClickHandlers);
+        navBar.click();
     }
 }
 

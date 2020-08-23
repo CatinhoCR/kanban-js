@@ -29,20 +29,36 @@ body {
 }
 
 .modal {
+    padding: 10px;
     position: fixed;
     z-index: 100;
     background-color: hsla(170, 5%, 15%, 0.75);
-    border-radius: 10px;
-    width: 50%;
+    border-radius: 0px;
+    width: 30%;
     top: 30vh;
-    left: 25%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    left: 35%;
     display: none;
 }
 
 .modal.visible {
     display: block;
     animation: fade-slide-in 0.3s ease-out forwards;
+}
+
+.new-task-view {
+    padding: 10px;
+}
+
+.task-container {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 10px;
+    border-color: hsla(0, 0%, 84%, 0.5);
+}
+.modal-title {
+    color: rgb(219, 219, 219);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
 }
 
 .board {
@@ -75,8 +91,7 @@ body {
     padding: 10px;
 }
 
-.tasklist-name,
-.modal-title {
+.tasklist-name {
     color: aliceblue;
     font-family: 'Share Tech Mono', monospace;
     padding-left: 10px;
@@ -141,5 +156,36 @@ form {
     flex-direction: row;
 }
 
+form fieldset {
+    display: flex;
+    padding-left: 10px;
+    color: white;
+    border-width: 1px;
+    width: 100%;
+}
 
+fieldset legend {
+    color: aliceblue;
+    font-family: 'Share Tech Mono', monospace;
+    padding-left: 10px;
+    font-size: 1rem;
+}
 
+fieldset label {
+    display: flex;
+    justify-content: flex-end;
+    font-family: sans-serif;
+    font-size: 0.9rem;
+}
+
+label input {
+    margin-left: 10px;
+    align-self: flex-end;
+    width: 50%;
+}
+
+fieldset .buttons {
+    margin-right : 20px;
+    display: flex;
+    flex-direction: row-reverse;
+}
