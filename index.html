@@ -8,31 +8,60 @@
             href="https://fonts.googleapis.com/css2?family=Alata&display=swap"
             rel="stylesheet"
         />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat&family=Share+Tech+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <script src="assets\js\app.js" defer></script>
     </head>
 
     <body>
-        <header>
-            <nav class="nav-bar" id="main-navigation">KAN BAN JS</nav>
-        </header>
+        <div id="backdrop"></div>
+        <section id="navigation">
+            <nav class="nav-bar" id="main-navigation-bar">KAN BAN JS</nav>
+        </section>
+        <section id="app">
+            <section class="board" id="board">
+                <div class="tasklist" id="list1">
+                    <div class="tasklist-header">
+                        <p class="tasklist-name">Pendientes</p>
+                        <button class="add-task-btn">+</button>
+                    </div>
 
-        <section class="board" id="board">
-            <div class="tasklist" id="tl-sprint">
-                <p class="tasklist-name" id="list1">Sprint</p>
-                <li class="task" id="l1-task1">Tarea 1</li>
-                <li class="task" id="l1-task2">Tarea 2</li>
-                <li class="task" id="l1-task3">Tarea 3</li>
-            </div>
-            <div class="tasklist" id="tl-todo">
-                <p class="tasklist-name" id="list2">Doing</p>
-                <li class="task" id="l2-task1">Tarea 1</li>
-                <li class="task" id="l2-task2">Tarea 2</li>
-                <li class="task" id="l2-task3">Tarea 3</li>
-            </div>
-            <div class="tasklist" id="tl-todo">
-                <p class="tasklist-name" id="list3">Done</p>
-                <li class="task" id="l3-task1">Tarea 1</li>
-                <li class="task" id="l3-task2">Tarea 2</li>
-                <li class="task" id="l3-task3">Tarea 3</li>
+                    <li class="task" id="task1">Tarea 1</li>
+                    <li class="task" id="task2">Tarea 2</li>
+                    <li class="task" id="task3">Tarea 3</li>
+                </div>
+
+                <div class="tasklist" id="list2">
+                    <div class="tasklist-header">
+                        <p class="tasklist-name">En Proceso</p>
+                        <button class="add-task-btn">+</button>
+                    </div>
+
+                    <li class="task" id="task4">Tarea 4</li>
+                    <li class="task" id="task5">Tarea 5</li>
+                    <li class="task" id="task6">Tarea 6</li>
+                </div>
+
+                <div class="tasklist" id="list3">
+                    <div class="tasklist-header">
+                        <p class="tasklist-name">Finalizadas</p>
+                        <button class="add-task-btn">+</button>
+                    </div>
+                    <li class="task" id="task7">Tarea 7</li>
+                    <li class="task" id="task8">Tarea 8</li>
+                    <li class="task" id="task9">Tarea 9</li>
+                </div>
+            </section>
+            <div class="modal" id="modal">
+                <p class="modal-title">Add New Task</p>
+                <form action=""></form>
+                    <div>Task Name:</div>
+                    <input type="text" />
+                    <button>Cancel</button>
+                    <button>Add Task</button>
+                </form>
             </div>
         </section>
     </body>
