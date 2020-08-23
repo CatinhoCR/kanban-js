@@ -35,22 +35,37 @@ class TaskList {
     }
 
     addTaskBtnHandler() {
-        //$Hard Code new Task
-        const newTask = new Task(
-            Math.random().toString(),
-            this.id,
-            'Nueva Tarea'
-        );
+        const modalTaskView = document.querySelector('div.modal');
+        modalTaskView.classList.add('visible');
+        const backdrop = document.getElementById('backdrop');
+        backdrop.classList.add('visible');
 
-        //const backdrop = document.getElementById('backdrop');
-        //backdrop.classList.add('visible');
-        // const modal = document.getElementById('modal');
-        // modal.classList.add('visible');
+        const submitBtn = modalTaskView.querySelector('button:last-of-type');
+        console.log(this);
+        submitBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            //console.log(this);
+            //console.log(modalTaskView);
 
-        // document.body.append(modal);
-        // //alert('New Task Button was clicked');
+            const newTaskName = modalTaskView.querySelector('input').value;
+            //console.log(newTaskName);
+            if (newTaskName !== '') {
+                const newTask = new Task(
+                    Math.random().toString(),
+                    this.id,
+                    newTaskName
+                );
 
-        this.addTask(newTask);
+                this.addTask(newTask);
+
+                console.log('form Submitted Sucessfully');
+
+                backdrop.classList.remove('visible');
+                modalTaskView.classList.remove('visible');
+            } else {
+                alert('Error: Nombre de la tarea no puede estar en blanco');
+            }
+        });
     }
 
     addTask(task) {
@@ -83,12 +98,7 @@ class Board {
     }
 }
 
-const navBarClickHandlers = () => {
-    const modalTaskView = document.querySelector('div.modal');
-    modalTaskView.classList.add('visible');
-    const backdrop = document.getElementById('backdrop');
-    backdrop.classList.add('visible');
-};
+const navBarClickHandlers = () => {};
 
 //$ Launches the application
 class App {
@@ -102,11 +112,6 @@ class App {
 
         const rtask = list1.tasks[1];
         list1.removeTask(rtask);
-
-        //temporary add task button
-        const navBar = document.getElementById('main-navigation-bar');
-        navBar.addEventListener('click', navBarClickHandlers);
-        navBar.click();
     }
 }
 
