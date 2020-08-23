@@ -35,7 +35,40 @@ class TaskList {
     }
 
     addTaskBtnHandler() {
-        const modalTaskView = document.querySelector('div.modal');
+        const addTaskModal = document.createElement('div');
+        addTaskModal.classList.add('modal');
+        addTaskModal.id = 'modal2';
+
+        //#region //! Inject HTML for MODAL
+        addTaskModal.innerHTML = `
+        <p class="modal-title">Add New Task</p>
+        <form action="">
+            <fieldset>
+                <legend>Task Information</legend>
+                <p>
+                    <label
+                        >Task name: <input type="text" name="task-name"
+                    /></label>
+                </p>
+                <p>
+                    <label
+                        >Task description:
+                        <input type="text" name="task-description"
+                    /></label>
+                </p>
+
+                <p class="buttons">
+                    <button class="add-task-btn-${this.parentListName}">Submit</button>
+                </p>
+            </fieldset>
+        </form>
+        
+        `;
+        //#endregion
+
+        document.getElementById('app').appendChild(addTaskModal);
+
+        const modalTaskView = document.getElementById('modal2');
         modalTaskView.classList.add('visible');
         const backdrop = document.getElementById('backdrop');
         backdrop.classList.add('visible');
@@ -44,11 +77,8 @@ class TaskList {
         console.log(this);
         submitBtn.addEventListener('click', (event) => {
             event.preventDefault();
-            //console.log(this);
-            //console.log(modalTaskView);
-
             const newTaskName = modalTaskView.querySelector('input').value;
-            //console.log(newTaskName);
+
             if (newTaskName !== '') {
                 const newTask = new Task(
                     Math.random().toString(),
@@ -61,7 +91,8 @@ class TaskList {
                 console.log('form Submitted Sucessfully');
 
                 backdrop.classList.remove('visible');
-                modalTaskView.classList.remove('visible');
+
+                document.getElementById('app').removeChild(addTaskModal);
             } else {
                 alert('Error: Nombre de la tarea no puede estar en blanco');
             }
