@@ -8,26 +8,89 @@ class Task {
         this.parentListName = document
             .getElementById(parentID)
             .querySelector('.tasklist-name').innerHTML;
+        //this.connectDrag();
     }
 }
 
 class TaskList {
     tasks = [];
 
-    constructor(id) {
+    constructor(id, listName = 'newList', targetBoard) {
         this.id = id;
-        const thisList = document.getElementById(id);
+        let thisList = document.getElementById(id);
+        if (!document.getElementById(id)) {
+            console.log(`Lista ${listName} creada con exito`);
+            thisList = document.createElement('div');
+            thisList.innerHTML = `
+            <div class="tasklist" id="${id}">
+            <div class="tasklist-header">
+                <p class="tasklist-name">${listName}</p>
+                <button class="add-task-btn">+</button>
+            </div>
+            </div>
+            `;
+            //console.log(thisList);
+            targetBoard.appendChild(thisList);
+        }
+
         //console.log(thisList);
-        const taskItems = document.querySelectorAll(`#${id} li`);
+
+        const taskItems = ['task1', 'task2', 'task3'];
 
         for (const task of taskItems) {
-            const newTask = new Task(task.id, id);
-            this.tasks.push(newTask);
+            const newTask = new Task(id + '-' + task, id, 'defaultTask');
+            this.addTask(newTask);
         }
+
+        this.connectDroppable();
+
+        //console.dir(this.tasks);
 
         //$Show Add Task Modal
         const addTaskBtn = thisList.querySelector('.add-task-btn');
         addTaskBtn.addEventListener('click', this.addTaskBtnHandler.bind(this));
+    }
+
+    connectDroppable(id) {
+        const targetHandle = document.getElementById(this.id);
+        targetHandle.addEventListener('dragenter', (event) => {
+            if (event.dataTransfer.types[0] === 'text/plain') {
+                event.preventDefault();
+            }
+        });
+
+        targetHandle.addEventListener('dragover', (event) => {
+            if (event.dataTransfer.types[0] === 'text/plain') {
+                targetHandle.classList.add('droppable');
+                event.preventDefault();
+            }
+        });
+
+        targetHandle.addEventListener('dragleave', (event) => {
+            if (event.relatedTarget !== targetHandle) {
+                targetHandle.classList.remove('droppable');
+            }
+        });
+
+        targetHandle.addEventListener('drop', (event) => {
+            const tid = event.dataTransfer.getData('text/plain');
+            if (this.tasks.find((t) => t.taskID === tid)) {
+                console.log('task is already in this list');
+            }
+            console.log(tid);
+            console.log(this.tasks);
+        });
+    }
+
+    connectDrag(taskId) {
+        const tt = document.getElementById(taskId);
+        tt.addEventListener('dragstart', function (event) {
+            event.dataTransfer.setData('text/plain', this.id);
+            event.dataTransfer.effectAllowed = 'move';
+            console.log('dragging...', this.id);
+        });
+        //console.log(tt);
+        //console.log('connectDragCalled');
     }
 
     addTaskBtnHandler() {
@@ -76,6 +139,7 @@ class TaskList {
             const newTaskName = modalTaskView.querySelector('input').value;
 
             if (newTaskName !== '') {
+                console.log('Creating new task', this);
                 const newTask = new Task(
                     Math.random().toString(),
                     this.id,
@@ -99,10 +163,12 @@ class TaskList {
         this.tasks.push(task);
         const target = document.getElementById(task.parentListID);
         const newTask = document.createElement('li');
+        newTask.setAttribute('id', task.taskID);
         newTask.classList.add('task');
         newTask.textContent = task.taskName;
         newTask.setAttribute('draggable', true);
         target.append(newTask);
+        this.connectDrag(task.taskID);
     }
 
     removeTask(task) {
@@ -119,6 +185,22 @@ class Board {
     tasklists = [];
     constructor(status) {
         this.status = status;
+        const mainApp = document.getElementById('app');
+        const newBoard = document.createElement('section');
+        newBoard.setAttribute('id', 'board');
+        newBoard.classList.add('board');
+        mainApp.appendChild(newBoard);
+
+        const activeBoard = document.getElementById('board');
+
+        let count = 1;
+        DEFAULT_LISTS.forEach((element) => {
+            const newList = new TaskList(`list${count}`, element, activeBoard);
+            //this.addTaskList(newList);
+            count++;
+        });
+
+        console.log(this.tasklists);
     }
 
     addTaskList(newList) {
@@ -131,14 +213,7 @@ class App {
     static init() {
         //$ Start the App and Get information from HTML
         console.info('App Started');
-        const activeBoard = new Board('active');
-
-        const list1 = new TaskList('list1');
-        const list2 = new TaskList('list2');
-        const list3 = new TaskList('list3');
-
-        const rtask = list1.tasks[1];
-        list1.removeTask(rtask);
+        const board = new Board('active');
     }
 }
 

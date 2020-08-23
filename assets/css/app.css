@@ -85,6 +85,10 @@ body {
     padding-bottom: 15px;
 }
 
+.droppable {
+    background-color: hsla(180, 4%, 28%, 0.993);
+}
+
 .tasklist-header {
     display: inline-flex;
     align-items: center;
@@ -186,7 +190,7 @@ label input {
 }
 
 fieldset .buttons {
-    margin-right : 20px;
+    margin-right: 20px;
     display: flex;
     flex-direction: row-reverse;
 }
